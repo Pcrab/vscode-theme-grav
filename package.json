@@ -1,0 +1,67 @@
+{
+    "name": "quark",
+    "displayName": "Quark",
+    "description": "Quark ",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.72.0"
+    },
+    "license": "MIT",
+    "categories": [
+        "Themes"
+    ],
+    "extensionKind": [
+        "ui",
+        "workspace"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "quark",
+                "uiTheme": "vs",
+                "path": "./themes/quark-color-theme.json"
+            }
+        ]
+    },
+    "scripts": {
+        "check": "tsc --noEmit",
+        "clean": "pnpm clean:dist && pnpm clean:package && pnpm clean:themes ",
+        "clean:test": "rimraf coverage",
+        "clean:dist": "rimraf dist",
+        "clean:package": "rimraf *.vsix",
+        "clean:themes": "rimraf themes",
+        "compile": "pnpm compile:esbuild",
+        "compile:esbuild": "ts-node esbuild.compile.ts",
+        "watch": "pnpm watch:esbuild",
+        "watch:esbuild": "ts-node esbuild.watch.ts",
+        "watch:theme": "nodemon src/generator/index.ts",
+        "lint": "eslint . --ext .ts",
+        "package": "vsce package --no-dependencies",
+        "preinstall": "npx only-allow pnpm",
+        "prepare": "husky install",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.2.0",
+        "@types/node": "^18.11.7",
+        "@types/nodemon": "^1.19.2",
+        "@types/vscode": "^1.72.0",
+        "@typescript-eslint/eslint-plugin": "^5.41.0",
+        "@typescript-eslint/parser": "^5.41.0",
+        "esbuild": "^0.15.12",
+        "eslint": "^8.26.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "husky": "^8.0.1",
+        "jest": "^29.2.2",
+        "lint-staged": "^13.0.3",
+        "nodemon": "^2.0.20",
+        "prettier": "^2.7.1",
+        "rimraf": "^3.0.2",
+        "ts-jest": "^29.0.3",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.8.4",
+        "vsce": "^2.13.0"
+    }
+}
