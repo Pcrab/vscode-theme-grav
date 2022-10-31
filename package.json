@@ -17,9 +17,14 @@
     "contributes": {
         "themes": [
             {
-                "label": "quark",
+                "label": "quark-light",
                 "uiTheme": "vs",
-                "path": "./themes/quark-color-theme.json"
+                "path": "./themes/quark-light.json"
+            },
+            {
+                "label": "quark-dark",
+                "uiTheme": "vs",
+                "path": "./themes/quark-dark.json"
             }
         ]
     },

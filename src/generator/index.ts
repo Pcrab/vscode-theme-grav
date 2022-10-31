@@ -1,5 +1,6 @@
-import generateTheme from "./themes";
+import generateTheme from "./theme";
 
-generateTheme().catch(() => {
+generateTheme().catch((e) => {
+    console.log(e);
     return;
 });
