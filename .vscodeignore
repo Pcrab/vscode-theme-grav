@@ -1,13 +1,15 @@
 /.husky
 /.vscode/**
 /.vscode-test/**
-/vsc-extension-quickstart.md
 /dist
 /src
 /.eslint*
 /.git*
 /.prettierrc.json
 /.swcrc
-/esbuild.build.ts
+/esbuild.base.ts
+/esbuild.compile.ts
+/esbuild.watch.ts
 /jest.config.ts
 /tsconfig.json
+/vsc-extension-quickstart.md
