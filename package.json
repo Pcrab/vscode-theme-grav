@@ -1,7 +1,7 @@
 {
-    "name": "quark",
+    "name": "vscode-theme-quark",
     "displayName": "Quark",
-    "description": "Quark ",
+    "description": "Quark VS Code theme",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.72.0"
@@ -17,13 +17,13 @@
     "contributes": {
         "themes": [
             {
-                "label": "quark-light",
+                "label": "Quark Light",
                 "uiTheme": "vs",
                 "path": "./themes/quark-light.json"
             },
             {
-                "label": "quark-dark",
-                "uiTheme": "vs",
+                "label": "Quark Dark",
+                "uiTheme": "vs-dark",
                 "path": "./themes/quark-dark.json"
             }
         ]
