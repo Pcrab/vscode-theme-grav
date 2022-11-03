@@ -1,7 +1,7 @@
 {
-    "name": "vscode-theme-quark",
-    "displayName": "Quark",
-    "description": "Quark VS Code theme",
+    "name": "vscode-theme-grav",
+    "displayName": "Grav",
+    "description": "Grav VS Code theme",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.72.0"
@@ -17,14 +17,14 @@
     "contributes": {
         "themes": [
             {
-                "label": "Quark Light",
+                "label": "Grav Light",
                 "uiTheme": "vs",
-                "path": "./themes/quark-light.json"
+                "path": "./themes/grav-light.json"
             },
             {
-                "label": "Quark Dark",
+                "label": "Grav Dark",
                 "uiTheme": "vs-dark",
-                "path": "./themes/quark-dark.json"
+                "path": "./themes/grav-dark.json"
             }
         ]
     },
