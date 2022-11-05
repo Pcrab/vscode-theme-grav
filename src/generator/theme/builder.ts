@@ -1,5 +1,4 @@
-// import { NormalColors, ThemeColors } from "../palette";
-import { ThemeColors } from "../palette";
+import { NormalColors, ThemeColors } from "../palette";
 import { color, ThemeType } from "../types";
 import { getThemeName } from "./utils";
 
@@ -20,19 +19,28 @@ type hex =
     | "d"
     | "e"
     | "f";
+type Opacity = `${hex}${hex}`;
 const buildTheme = (type: ThemeType) => {
-    const pick = (options: { [k in ThemeType]: color }) => options[type];
-    const palette = (
-        key: keyof typeof ThemeColors,
-        opacity: `${hex}${hex}` = "ff",
-    ) =>
-        `${pick({
-            light: ThemeColors[key][0],
-            dark: ThemeColors[key][1],
-        })}${opacity}`;
-    // const normal = NormalColors;
+    const pick = (
+        options: { [k in ThemeType]: color },
+        opacity: Opacity = "ff",
+    ) => `${options[type]}${opacity}`;
+    const palette = (key: keyof typeof ThemeColors, opacity: Opacity = "ff") =>
+        `${pick(
+            {
+                light: ThemeColors[key][0],
+                dark: ThemeColors[key][1],
+            },
+            opacity,
+        )}`;
+    const normal = NormalColors;
 
+    const blank = "#00000000";
+    const main = normal.violet;
+
+    const primary = palette("primary");
     const background = palette("background");
+    const activeBackground = palette("activeBackground");
     const foreground = palette("foreground");
     return {
         name: getThemeName(type),
@@ -40,86 +48,220 @@ const buildTheme = (type: ThemeType) => {
         semanticHighlighting: true,
         colors: {
             foreground,
-            focusBorder: "#00000000",
+            focusBorder: blank,
             disabledForeground: palette("disabled"),
             "widget.shadow": pick({ light: "#d1d5db", dark: "#" }),
             descriptionForeground: foreground,
             errorForeground: foreground,
             "icon.foreground": foreground,
-            "sash.hoverBorder": "#00000000",
+            "sash.hoverBorder": blank,
             "window.activeBorder": palette("border"),
             "window.inactiveBorder": palette("border"),
-            // "textCodeBlock.background": palette.slate400,
-            // "textLink.activeForeground": palette.violet400,
-            "textLink.foreground": foreground,
-            // "button.background": palette.violet700,
-            // "button.hoverBackground": palette.violet800,
+            "textCodeBlock.background": background,
+            "textLink.activeForeground": main[5],
+            "textLink.foreground": pick({
+                light: main[8],
+                dark: main[2],
+            }),
+            "button.background": primary,
+            "button.foreground": background,
+            "button.hoverBackground": pick({
+                light: main[8],
+                dark: main[2],
+            }),
             "dropdown.background": background,
-            // "input.background": `${palette.gray300}44`,
-            // "input.border": blank,
+            "input.background": pick({ light: main[2], dark: main[8] }, "88"),
+            "input.border": blank,
             "input.foreground": foreground,
-            // "input.placeholderForeground": `${palette.violet800}88`,
-            // "scrollbar.shadow": `#6a737d33`,
-            // "scrollbarSlider.background": `${palette.gray300}aa`,
-            // "scrollbarSlider.hoverBackground": `${palette.gray500}44`,
-            // "scrollbarSlider.activeBackground": `${palette.gray600}44`,
-            // "badge.foreground": palette.gray800,
-            // "badge.background": palette.violet200,
-            // "progressBar.background": palette.violet200,
-            // "list.activeSelectionBackground": palette.violet100,
-            // "list.activeSelectionForeground": palette.gray800,
-            // "list.inactiveSelectionBackground": palette.violet100,
-            // "list.hoverBackground": palette.violet100,
-            // "activityBar.background": palette.violet300,
-            // "activityBar.foreground": palette.violet800,
-            // "activityBar.inactiveForeground": palette.violet50,
-            // "activityBarBadge.background": palette.violet400,
-            // "sideBar.background": palette.violet50,
-            // "sideBar.border": palette.gray300,
-            // "editorGroupHeader.tabsBackground": palette.violet50,
-            // "tab.inactiveBackground": palette.violet50,
-            // "tab.hoverBackground": palette.violet200,
-            // "tab.activeBorderTop": palette.gray500,
-            // "tab.border": palette.gray200,
-            // "editor.background": palette.violet50,
-            // "editor.foreground": palette.gray700,
-            // "editorCursor.background": palette.violet200,
-            // "editorCursor.foreground": palette.gray500,
-            // "editor.selectionBackground": palette.violet300,
-            // "editor.inactiveSelectionBackground": `${palette.violet300}aa`,
-            // "editor.selectionHighlightBackground": `${palette.violet300}88`,
-            // "editor.wordHighlightBackground": palette.violet300,
-            // "editor.findMatchBackground": palette.purple400,
-            // "editor.findMatchHighlightBackground": palette.purple100,
-            // "editor.hoverHighlightBackground": palette.violet200,
-            // "editor.lineHighlightBackground": `${palette.violet200}44`,
-            // "editorLineNumber.foreground": palette.violet400,
-            // "editorLink.activeForeground": palette.violet800,
-            // "editorRuler.foreground": palette.gray300,
-            // "editorBracketHighlight.foreground1": palette.red600,
-            // "editorBracketHighlight.foreground2": palette.cyan500,
-            // "editorBracketHighlight.foreground3": palette.yellow500,
-            // "editorBracketHighlight.foreground4": palette.blue500,
-            // "editorBracketHighlight.foreground5": palette.purple400,
-            // "editorBracketHighlight.foreground6": palette.sky500,
-            // "diffEditor.insertedTextBackground": palette.cyan50,
-            // "diffEditor.removedTextBackground": palette.pink100,
-            // "editorWidget.background": palette.violet50,
-            // "peekViewEditor.background": palette.violet100,
-            // "peekViewResult.background": palette.violet100,
-            // "peekViewEditor.matchHighlightBackground": palette.pink100,
-            // "statusBar.background": palette.violet50,
+            "input.placeholderForeground": pick({
+                light: main[8],
+                dark: main[2],
+            }),
+            "scrollbar.shadow": `#6a737d33`,
+            "scrollbarSlider.background": pick(
+                { light: normal.gray[3], dark: normal.gray[6] },
+                "aa",
+            ),
+            "scrollbarSlider.hoverBackground": `${normal.gray[5]}44`,
+            "scrollbarSlider.activeBackground": pick(
+                { light: normal.gray[7], dark: normal.gray[4] },
+                "44",
+            ),
+            "badge.foreground": foreground,
+            "badge.background": pick({
+                light: main[2],
+                dark: main[7],
+            }),
+            "progressBar.background": pick({
+                light: main[2],
+                dark: main[7],
+            }),
+            "list.activeSelectionBackground": activeBackground,
+            "list.activeSelectionForeground": foreground,
+            "list.inactiveSelectionBackground": pick({
+                light: main[1],
+                dark: main[8],
+            }),
+            "list.hoverBackground": pick({
+                light: main[1],
+                dark: main[8],
+            }),
+            "activityBar.background": pick({
+                light: main[3],
+                dark: main[6],
+            }),
+            "activityBar.foreground": pick({
+                light: main[8],
+                dark: main[1],
+            }),
+            "activityBar.inactiveForeground": pick({
+                light: main[0],
+                dark: main[9],
+            }),
+            "activityBarBadge.background": pick({
+                light: main[4],
+                dark: main[5],
+            }),
+            "sideBar.background": background,
+            "sideBar.border": pick({
+                light: normal.gray[3],
+                dark: normal.gray[6],
+            }),
+            "editorGroupHeader.tabsBackground": background,
+            "tab.inactiveBackground": background,
+            "tab.hoverBackground": activeBackground,
+            "tab.activeBorderTop": normal.gray[5],
+            "tab.border": pick({
+                light: normal.gray[2],
+                dark: normal.gray[7],
+            }),
+            "editor.background": background,
+            "editor.foreground": foreground,
+            "editorCursor.background": activeBackground,
+            "editorCursor.foreground": pick({
+                light: normal.gray[5],
+                dark: normal.gray[4],
+            }),
+            "editor.selectionBackground": pick({
+                light: main[3],
+                dark: main[6],
+            }),
+            "editor.inactiveSelectionBackground": pick(
+                {
+                    light: main[3],
+                    dark: main[6],
+                },
+                "aa",
+            ),
+            "editor.selectionHighlightBackground": pick(
+                {
+                    light: main[3],
+                    dark: main[6],
+                },
+                "88",
+            ),
+            "editor.wordHighlightBackground": pick({
+                light: main[3],
+                dark: main[6],
+            }),
+            "editor.findMatchBackground": pick({
+                light: main[4],
+                dark: main[5],
+            }),
+            "editor.findMatchHighlightBackground": pick({
+                light: main[1],
+                dark: main[8],
+            }),
+            "editor.hoverHighlightBackground": activeBackground,
+            "editor.lineHighlightBackground": palette("activeBackground", "44"),
+            "editorLineNumber.foreground": pick({
+                light: main[8],
+                dark: main[2],
+            }),
+            "editorLink.activeForeground": pick({
+                light: main[8],
+                dark: main[1],
+            }),
+            "editorRuler.foreground": pick({
+                light: normal.gray[3],
+                dark: normal.gray[6],
+            }),
+            "editorBracketHighlight.foreground1": pick({
+                light: normal.red[6],
+                dark: normal.red[3],
+            }),
+            "editorBracketHighlight.foreground2": pick({
+                light: normal.cyan[5],
+                dark: normal.cyan[4],
+            }),
+            "editorBracketHighlight.foreground3": pick({
+                light: normal.yellow[5],
+                dark: normal.yellow[4],
+            }),
+            "editorBracketHighlight.foreground4": pick({
+                light: normal.blue[5],
+                dark: normal.blue[4],
+            }),
+            "editorBracketHighlight.foreground5": pick({
+                light: normal.purple[4],
+                dark: normal.purple[5],
+            }),
+            "editorBracketHighlight.foreground6": pick({
+                light: normal.sky[5],
+                dark: normal.sky[4],
+            }),
+            "diffEditor.insertedTextBackground": pick({
+                light: normal.cyan[0],
+                dark: normal.cyan[9],
+            }),
+            "diffEditor.removedTextBackground": pick({
+                light: normal.pink[1],
+                dark: normal.pink[8],
+            }),
+            "editorWidget.background": background,
+            "peekViewEditor.background": pick({
+                light: main[1],
+                dark: main[8],
+            }),
+            "peekViewResult.background": pick({
+                light: main[1],
+                dark: main[8],
+            }),
+            "peekViewEditor.matchHighlightBackground": pick({
+                light: normal.pink[1],
+                dark: normal.pink[8],
+            }),
+            "statusBar.background": background,
             "statusBar.foreground": foreground,
-            // "statusBar.debuggingBackground": palette.red200,
-            // "statusBar.debuggingForeground": palette.red900,
-            // "statusBarItem.errorBackground": palette.red900,
-            // "statusBarItem.errorForeground": palette.violet50,
-            // "statusBarItem.warningBackground": palette.yellow900,
-            // "statusBarItem.warningForeground": palette.violet50,
-            // "titleBar.activeBackground": palette.violet50,
-            // "titleBar.activeForeground": palette.gray900,
-            // "titleBar.inactiveBackground": palette.violet50,
-            // "titleBar.inactiveForeground": palette.gray500,
+            "statusBar.debuggingBackground": pick({
+                light: normal.red[2],
+                dark: normal.red[7],
+            }),
+            "statusBar.debuggingForeground": pick({
+                light: normal.red[9],
+                dark: normal.red[0],
+            }),
+            "statusBarItem.errorBackground": pick({
+                light: normal.red[9],
+                dark: normal.red[0],
+            }),
+            "statusBarItem.errorForeground": background,
+            "statusBarItem.warningBackground": pick({
+                light: normal.yellow[9],
+                dark: normal.yellow[0],
+            }),
+            "statusBarItem.warningForeground": background,
+            "titleBar.activeBackground": background,
+            "titleBar.activeForeground": pick({
+                light: normal.gray[9],
+                dark: normal.gray[0],
+            }),
+            "titleBar.inactiveBackground": background,
+            "titleBar.inactiveForeground": normal.gray[5],
+            "titleBar.border": pick({
+                light: normal.gray[2],
+                dark: normal.gray[7],
+            }),
         },
         tokenColors: [
             {
