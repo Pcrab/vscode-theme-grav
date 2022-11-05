@@ -297,11 +297,30 @@ const NormalColors = {
 const ThemeColors = {
     // [light, dark]
     primary: [NormalColors.violet[6], NormalColors.violet[3]],
-    background: [NormalColors.violet[0], "#"],
-    foreground: [NormalColors.gray[9], "#"],
+    background: [NormalColors.violet[0], "#ffffff"],
+    foreground: [NormalColors.gray[9], "#000000"],
     disabled: ["#94a3b8", "#"],
     border: ["#94a3b8", "#"],
     activeBackground: [NormalColors.violet[2], NormalColors.violet[7]],
+
+    boolean: ["#4d9375", "#1e754f"],
+    builtin: ["#cb7676", "#ab5959"],
+    class: ["#6893BF", "#5a6aa6"],
+    constant: ["#c99076", "#a65e2b"],
+    comment: [NormalColors.gray[4], NormalColors.gray[5]],
+    decorator: ["#bd8f8f", "#bd8f8f"],
+    function: [NormalColors.violet[7], NormalColors.violet[2]],
+    interface: ["#5DA994", "#2e8f82"],
+    keyword: ["#4d9375", "#1e754f"],
+    namespace: ["#db889a", "#b05a78"],
+    number: ["#4C9A91", "#2f798a"],
+    operator: ["#cb7676", "#ab5959"],
+    property: ["#b8a965", "#998418"],
+    punctuation: [NormalColors.violet[7], NormalColors.violet[2]],
+    regex: ["#c4704f", "#ab5e3f"],
+    string: ["#c98a7d", "#b56959"],
+    type: ["#5da9a7", "#2e808f"],
+    variable: ["#bd976a", "#b07d48"],
 } as const;
 
 export { NormalColors, ThemeColors };
